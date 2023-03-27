@@ -1,0 +1,60 @@
+html {
+    box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+div.container {
+    /* border: 5px solid green; */
+    width: 500px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.section1,
+.section2 {
+    /* border: 5px solid orange; */
+    display: flex;
+}
+
+.numbers {
+    /* border: 5px solid pink; */
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+.numbers1,
+.numbers2 {
+    /* border: 5px solid blue; */
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.enter {
+    /* border: 5px solid red; */
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    flex-grow: 1;
+    width: 125px;
+    height: 100px;
+}
