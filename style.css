@@ -28,9 +28,15 @@ div.container {
 }
 
 .section1,
-.section2 {
+.section2,
+.section3 {
     /* border: 5px solid orange; */
     display: flex;
+}
+
+.section1 {
+    justify-content: flex-end;
+    padding: 10px;
 }
 
 .numbers {
