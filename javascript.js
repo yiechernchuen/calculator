@@ -10,7 +10,53 @@ function multiplication(number1, number2) {
 function division(number1, number2) {
     return number1 / number2;
 }
-function operate() {
+function digit1(e) {
+    if (!(operatorClicked || equalClicked)) {
+        e.type === 'click' ? (number1 += e.target.innerText) : (number1 += e.key);
+        if (number1 === '0') {
+            number1 = '';
+            display2.textContent = '0';
+        } else {
+            display2.textContent = number1;
+        }
+    }
+    if (equalClicked && !number1HasDecimal) {
+        clear(e);
+        e.type === 'click' ? (number1 += e.target.innerText) : (number1 += e.key);
+        display2.textContent = number1;
+    }
+    if (equalClicked && number1HasDecimal) {
+        e.type === 'click' ? (number1 += e.target.innerText) : (number1 += e.key);
+    }
+    if (e.type === 'click') e.target.blur();
+}
+function digit2(e) {
+    if (operatorClicked) {
+        e.type === 'click' ? (number2 += e.target.innerText) : (number2 += e.key);
+        if (number2 === '0') {
+            number2 = '';
+            display2.textContent = '0';
+        } else {
+            display1.textContent = `${number1} ${operator}`;
+            display2.textContent = number2;
+        }
+    }
+    if (e.type === 'click') e.target.blur();
+}
+function operatorFunc(e) {
+    if (number1 && number2) operate(e);
+    if (display2.textContent === 'ERROR') return;
+    if (number1 === '') number1 = '0';
+    equalClicked = false;
+    decimalClicked = false;
+    operatorClicked = true;
+    operator = e.type === 'click' ? e.target.innerText : e.key;
+    display1.textContent = `${number1} ${operator}`;
+    display2.textContent = '0';
+    if (e.type === 'click') e.target.blur();
+}
+function operate(e) {
+    if (e.type === 'click') e.target.blur();
     if (operator === '+') {
         displayOutputValue = addition(number1, number2);
     } else if (operator === '-') {
@@ -19,7 +65,7 @@ function operate() {
         displayOutputValue = multiplication(number1, number2);
     } else if (operator === '/') {
         if (!number2 || number2 === '0' || number2 === '0.') {
-            clear();
+            clear(e);
             display2.textContent = 'ERROR';
             return;
         }
@@ -39,7 +85,7 @@ function operate() {
     number2 = '';
     operator = '';
 }
-function remove() {
+function remove(e) {
     if (number1 && operator && number2) {
         number2 = number2.slice(0, -1);
         number2HasDecimal = number2.includes('.');
@@ -57,8 +103,9 @@ function remove() {
             display2.textContent = '0';
         }
     }
+    if (e.type === 'click') e.target.blur();
 }
-function clear() {
+function clear(e) {
     number1 = '';
     number2 = '';
     operator = '';
@@ -70,9 +117,10 @@ function clear() {
     number2HasDecimal = false;
     display1.textContent = '';
     display2.textContent = displayOutputValue;
+    if (e.type === 'click') e.target.blur();
 }
 
-function decimal() {
+function decimal(e) {
     const number1Func = () => {
         display2.textContent = number1;
         number1HasDecimal = true;
@@ -98,16 +146,24 @@ function decimal() {
         number2Func();
     }
     if (equalClicked) {
-        clear();
+        clear(e);
         number1 = '0.';
         number1Func();
     }
+    if (e.type === 'click') e.target.blur();
 }
 
 let number1 = '';
 let number2 = '';
 let operator = '';
 let displayOutputValue = '0';
+let operatorClicked = false;
+let equalClicked = false;
+let decimalClicked = false;
+let number1HasDecimal = false;
+let number2HasDecimal = false;
+
+const clickAndKeydown = ['click', 'keydown'];
 
 const display1 = document.querySelector('.display1');
 const display2 = document.querySelector('.display2');
@@ -120,62 +176,29 @@ const buttonEqual = document.querySelector('.equal');
 
 display2.textContent = displayOutputValue;
 
-let operatorClicked = false;
-let equalClicked = false;
-let decimalClicked = false;
-let number1HasDecimal = false;
-let number2HasDecimal = false;
-
-buttonDigits.forEach((digit1) => {
-    digit1.addEventListener('click', (e) => {
-        if (!(operatorClicked || equalClicked)) {
-            number1 += e.target.innerText;
-            if (number1 === '0') {
-                number1 = '';
-                display2.textContent = '0';
-            } else {
-                display2.textContent = number1;
-            }
-        }
-        if (equalClicked && !number1HasDecimal) {
-            clear();
-            number1 += e.target.innerText;
-            display2.textContent = number1;
-        }
-        if (equalClicked && number1HasDecimal) {
-            number1 += e.target.innerText;
-        }
+clickAndKeydown.forEach((e) => {
+    buttonDigits.forEach((no1) => {
+        no1.addEventListener(e, digit1);
     });
-});
-buttonOperator.forEach((buttonOperator) => {
-    buttonOperator.addEventListener('click', (e) => {
-        if (number1 && number2) operate();
-        if (display2.textContent === 'ERROR') return;
-        if (number1 === '') number1 = '0';
-        equalClicked = false;
-        decimalClicked = false;
-        operatorClicked = true;
-        operator = e.target.innerText;
-        display1.textContent = `${number1} ${operator}`;
-        display2.textContent = '0';
+    buttonOperator.forEach((buttonOperator) => {
+        buttonOperator.addEventListener(e, operatorFunc);
+    });
+    buttonDigits.forEach((no2) => {
+        no2.addEventListener(e, digit2);
     });
 });
 
-buttonDigits.forEach((digit2) => {
-    digit2.addEventListener('click', (e) => {
-        if (operatorClicked) {
-            number2 += e.target.innerText;
-            if (number2 === '0') {
-                number2 = '';
-                display2.textContent = '0';
-            } else {
-                display1.textContent = `${number1} ${operator}`;
-                display2.textContent = number2;
-            }
-        }
-    });
+document.addEventListener('keydown', (e) => {
+    if (e.key.match(/\d/) && !e.key.match(/[\a-zA-z]/)) {
+        digit1(e);
+        digit2(e);
+    }
+    if (e.key.match(/[*\-/+]/)) operatorFunc(e);
+    if (e.key === 'Enter') operate(e);
+    if (e.key === 'Backspace') remove(e);
+    if (e.key === 'Escape') clear(e);
+    if (e.key === '.') decimal(e);
 });
-
 buttonEqual.addEventListener('click', operate);
 buttonDelete.addEventListener('click', remove);
 buttonClear.addEventListener('click', clear);
