@@ -6,62 +6,75 @@ html {
 *:after {
     box-sizing: inherit;
 }
-
 * {
     margin: 0;
     padding: 0;
 }
-
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    background-image: url(Background.webp);
 }
-
-div.container {
-    /* border: 5px solid green; */
-    width: 500px;
-    height: 500px;
+.outline {
+    border: 3px solid black;
+    border-radius: 6px;
     display: flex;
     flex-direction: column;
 }
-
-.section1,
-.section2,
-.section3 {
-    /* border: 5px solid orange; */
-    display: flex;
-}
-
-.section1 {
-    flex-direction: column;
-    align-items: flex-end;
-    padding: 10px;
-}
-
-.numbers {
-    /* border: 5px solid pink; */
-    flex: 1 1 auto;
+.container {
+    border: 15px solid rgb(56, 167, 139);
+    border-radius: 5px;
+    width: 400px;
+    height: 455px;
     display: flex;
     flex-direction: column;
+    gap: 20px;
+    background-color: rgb(56, 167, 139);
 }
-.numbers1,
-.numbers2 {
-    /* border: 5px solid blue; */
+.screen {
+    border: 3px solid black;
+    border-radius: 5px;
+    flex: 0 0 auto;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffffc9;
+}
+p {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 35px;
+}
+.display1 {
+    flex: 0 0 auto;
+    padding-top: 2px;
+    font-size: 20px;
+}
+.display2 {
+    flex: 1 0 auto;
+    padding-bottom: 3px;
+    font-size: 30px;
+    font-weight: bold;
+}
+.operations {
+    border-radius: 5px;
+    flex: 1 0 auto;
     display: flex;
     flex-wrap: wrap;
 }
-
-.enter {
-    /* border: 5px solid red; */
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
+.operator,
+.decimal,
+.clear,
+.equal,
+.delete {
+    background-color: rgb(213, 214, 145);
+    font-weight: bold;
 }
-
 button {
-    flex-grow: 1;
-    width: 125px;
-    height: 100px;
+    flex: 1 0 90px;
+    font-size: 20px;
+    border-radius: 5px;
 }
