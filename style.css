@@ -1,5 +1,6 @@
 html {
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
 }
 *,
 *:before,
@@ -10,37 +11,40 @@ html {
     margin: 0;
     padding: 0;
 }
+
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-image: url(Background.webp);
+    background-color: #343a40;
 }
-.outline {
-    border: 3px solid black;
-    border-radius: 6px;
+main {
+    flex-grow: 1;
     display: flex;
-    flex-direction: column;
+    align-items: center;
 }
+
 .container {
-    border: 15px solid rgb(56, 167, 139);
-    border-radius: 5px;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgb(0, 0, 0, 0.5);
     width: 400px;
     height: 455px;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    background-color: rgb(56, 167, 139);
+    background-color: #ced4da;
 }
 .screen {
-    border: 3px solid black;
+    box-shadow: 0 0 5px rgb(0, 0, 0, 0.5);
     border-radius: 5px;
     flex: 0 0 auto;
     height: 70px;
     display: flex;
     flex-direction: column;
-    background-color: #ffffffc9;
+    background-color: #f8f9fa;
 }
 p {
     display: flex;
@@ -59,22 +63,71 @@ p {
     font-size: 30px;
     font-weight: bold;
 }
+
 .operations {
+    flex-grow: 1;
     border-radius: 5px;
-    flex: 1 0 auto;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
 }
+
 .operator,
 .decimal,
 .clear,
 .equal,
 .delete {
-    background-color: rgb(213, 214, 145);
+    background-color: #adb5bd;
     font-weight: bold;
+}
+
+.digits {
+    background-color: #f8f9fa;
+}
+
+.empty {
+    background-color: #f8f9fa;
 }
 button {
     flex: 1 0 90px;
     font-size: 20px;
     border-radius: 5px;
+    border: none;
+    margin: 2px;
+    font-family: inherit;
+}
+
+footer {
+    padding: 0.5rem;
+    color: #212529;
+    text-align: center;
+    font-family: inherit;
+    display: flex;
+    gap: 3px;
+    background-color: #74c0fc;
+    align-self: stretch;
+    justify-content: center;
+    font-weight: bold;
+}
+
+ion-icon {
+    color: #212529;
+    transition: transform 0.3s ease-in-out;
+}
+
+ion-icon:hover {
+    transform: rotate(360deg) scale(1.2);
+}
+
+a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 31.25em) {
+    .container {
+        width: min(25rem, 100%);
+        margin: 0 1rem;
+    }
 }
