@@ -50,7 +50,11 @@ function operatorFunc(e) {
     equalClicked = false;
     decimalClicked = false;
     operatorClicked = true;
-    operator = e.type === 'click' ? e.target.innerText : e.key;
+    if (e.type === 'click') {
+        operator = e.target.innerText;
+    } else {
+        operator = e.key === '*' ? 'x' : e.key;
+    }
     display1.textContent = `${number1} ${operator}`;
     display2.textContent = '0';
     if (e.type === 'click') e.target.blur();
@@ -193,7 +197,7 @@ document.addEventListener('keydown', (e) => {
         digit1(e);
         digit2(e);
     }
-    if (e.key.match(/[x\-/+]/)) operatorFunc(e);
+    if (e.key.match(/[*\-/+]/)) operatorFunc(e);
     if (e.key === 'Enter') operate(e);
     if (e.key === 'Backspace') remove(e);
     if (e.key === 'Escape') clear(e);

@@ -42,25 +42,43 @@ main {
     border-radius: 5px;
     flex: 0 0 auto;
     height: 70px;
-    display: flex;
-    flex-direction: column;
+    display: grid;
     background-color: #f8f9fa;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
-p {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+
+.screen::-webkit-scrollbar {
+    height: 6px;
+}
+
+.screen::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.screen::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+.screen::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.display1,
+.display2 {
     padding-right: 35px;
+    padding-left: 15px;
+    text-align: end;
+    vertical-align: middle;
+    white-space: nowrap;
 }
 .display1 {
-    flex: 0 0 auto;
-    padding-top: 2px;
     font-size: 20px;
+    padding-top: 5px;
 }
 .display2 {
-    flex: 1 0 auto;
-    padding-bottom: 3px;
-    font-size: 30px;
+    padding-bottom: 5px;
+    font-size: 25px;
     font-weight: bold;
 }
 
@@ -127,7 +145,7 @@ a {
 
 @media (max-width: 31.25em) {
     .container {
-        width: min(25rem, 100%);
+        width: min(16rem, 100%);
         margin: 0 2rem;
     }
 }
@@ -135,5 +153,19 @@ a {
 @media (max-width: 24.375em) {
     .container {
         height: 380px;
+    }
+
+    .display1,
+    .display2 {
+        padding-right: 20px;
+    }
+
+    .display1 {
+        padding-top: 2px;
+        font-size: 17px;
+    }
+    .display2 {
+        padding-bottom: 2px;
+        font-size: 22px;
     }
 }
