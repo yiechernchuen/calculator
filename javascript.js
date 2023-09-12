@@ -61,7 +61,7 @@ function operate(e) {
         displayOutputValue = addition(number1, number2);
     } else if (operator === '-') {
         displayOutputValue = subtraction(number1, number2);
-    } else if (operator === '*') {
+    } else if (operator === 'x') {
         displayOutputValue = multiplication(number1, number2);
     } else if (operator === '/') {
         if (!number2 || number2 === '0' || number2 === '0.') {
@@ -193,7 +193,7 @@ document.addEventListener('keydown', (e) => {
         digit1(e);
         digit2(e);
     }
-    if (e.key.match(/[*\-/+]/)) operatorFunc(e);
+    if (e.key.match(/[x\-/+]/)) operatorFunc(e);
     if (e.key === 'Enter') operate(e);
     if (e.key === 'Backspace') remove(e);
     if (e.key === 'Escape') clear(e);
